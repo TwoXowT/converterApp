@@ -1,16 +1,14 @@
 import React, {useEffect, useState} from 'react';
 import {
-    ChakraProvider, Flex, Icon,
+    ChakraProvider, Container, Flex, Icon,
 } from "@chakra-ui/react";
 import axios from "axios";
 import {InputBox} from "./components/InputBox";
 import {currencyName} from "./Currency";
-import { ArrowUpDownIcon } from '@chakra-ui/icons'
+import {ChevronLeftIcon, ChevronRightIcon} from '@chakra-ui/icons'
 
 export const App = ()=>{
 
-
-    // const API_KEY = 'e7c553b0-7e8b-11ec-8869-1f0494d21d9b';
     const [currency, setCurrency] = useState([])
     const [leftVal, setLeftVal] = useState(1)
     const [rightVal, setRightVal] = useState(0)
@@ -20,7 +18,7 @@ export const App = ()=>{
 
 
     useEffect(()=>{
-        let url = `https://freecurrencyapi.net/api/v2/latest?apikey=e7c553b0-7e8b-11ec-8869-1f0494d21d9b`
+        let url = `https://api.currencyapi.com/v3/latest?apikey=e7c553b0-7e8b-11ec-8869-1f0494d21d9b`
         axios.get(url)
            .then(response=>{
                let data = response.data.data
@@ -34,11 +32,7 @@ export const App = ()=>{
                      }
                    }
                }
-               result.push({
-                   abbr: 'USD',
-                   name: 'United States dollar',
-                   val: 1
-               })
+
                setCurrency(result)
            })
     },[setCurrency])
@@ -49,11 +43,11 @@ export const App = ()=>{
             let left = 0, right = 0
             Object.keys(currency).map((key,index)=>{
                 if(currency[key].abbr === leftCurrency){
-                    left = currency[key].val
+                    left = currency[key].val.value
                 }
 
                 if(currency[key].abbr === rightCurrency){
-                    right = currency[key].val
+                    right = currency[key].val.value
                 }
 
 
@@ -62,11 +56,6 @@ export const App = ()=>{
 
             let result = (right/left)*leftVal
             setRightVal(result.toFixed(4))
-            // console.log('left',left)
-            // console.log('right',right)
-            // console.log('res',result)
-
-
 
 
     },[leftVal,rightVal,leftCurrency,rightCurrency])
@@ -80,29 +69,50 @@ export const App = ()=>{
 
     return (
         <ChakraProvider>
-            <Flex minW='500px' maxW='1000px' h='100%' m={4} flexWrap='unwrap' flexDirection={['column','column','row']} justifyContent='center' >
 
-                <InputBox
-                    val={leftVal}
-                    setVal={setLeftVal}
-                    currency={leftCurrency}
-                    setCurrency={setLeftCurrency}
-                    allCurrency ={currency}
-                />
+                <Flex
+                    w='100%'
+                    h='100%'
+                    mx='auto'
+                    flexWrap='unwrap'
+                    flexDirection={['column','column','row']}
+                    justifyContent='center'
+                    alignItems='center'
+                >
 
-                <Flex alignItems='center' justifyContent='center' m={10} >
-                    <Icon as={ArrowUpDownIcon} fontSize='60px'  onClick={permutation} />
+                    <InputBox
+                        val={leftVal}
+                        setVal={setLeftVal}
+                        currency={leftCurrency}
+                        setCurrency={setLeftCurrency}
+                        allCurrency ={currency}
+                    />
+
+                    <Flex
+                        // alignItems='center'
+                          // justifyContent='center'
+                          h='100%'
+                          m={1} >
+                        <Icon as={ChevronLeftIcon}
+                              fontSize='50px'
+                              onClick={permutation} />
+                        <Icon as={ChevronRightIcon}
+                              fontSize='50px'
+                              onClick={permutation} />
+
+                    </Flex>
+
+                    <InputBox
+                        val={rightVal}
+                        setVal={setRightVal}
+                        currency={rightCurrency}
+                        setCurrency={setRightCurrency}
+                        allCurrency ={currency}
+                    />
+
                 </Flex>
 
-                <InputBox
-                    val={rightVal}
-                    setVal={setRightVal}
-                    currency={rightCurrency}
-                    setCurrency={setRightCurrency}
-                    allCurrency ={currency}
-                />
 
-            </Flex>
         </ChakraProvider>
     )
 }

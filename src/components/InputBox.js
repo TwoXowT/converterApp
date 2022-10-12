@@ -15,7 +15,6 @@ export const InputBox = (payload)=>{
     }
 
     const handleChangeCurrency = (e)=>{
-
         payload.setCurrency(e.target.value)
     }
 
@@ -24,7 +23,7 @@ export const InputBox = (payload)=>{
     })
 
     return(
-        <Box w='99%' h='250px' borderWidth='1px' borderRadius='lg'>
+        <Box  h='250px' borderWidth='2px' borderRadius='lg'>
             <Select p={4} fontSize='20px' onChange={handleChangeCurrency} value={payload.currency}   variant='flushed' placeholder='Select currency' size='lg'>
                 {items}
             </Select>
