@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {
-    ChakraProvider, Container, Flex, Icon,
+    ChakraProvider, Flex, Icon,
 } from "@chakra-ui/react";
 import axios from "axios";
 import {InputBox} from "./components/InputBox";
@@ -41,7 +41,7 @@ export const App = ()=>{
 
 
             let left = 0, right = 0
-            Object.keys(currency).map((key,index)=>{
+            Object.keys(currency).map((key)=>{
                 if(currency[key].abbr === leftCurrency){
                     left = currency[key].val.value
                 }
@@ -107,7 +107,7 @@ export const App = ()=>{
                         setVal={setRightVal}
                         currency={rightCurrency}
                         setCurrency={setRightCurrency}
-                        allCurrency ={currency}
+                        allCurrency={currency}
                     />
 
                 </Flex>
