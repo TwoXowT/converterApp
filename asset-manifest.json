@@ -1,0 +1,10 @@
+{
+  "files": {
+    "main.js": "/converterApp/static/js/main.c8739aa7.js",
+    "index.html": "/converterApp/index.html",
+    "main.c8739aa7.js.map": "/converterApp/static/js/main.c8739aa7.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.c8739aa7.js"
+  ]
+}
